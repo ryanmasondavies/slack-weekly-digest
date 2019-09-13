@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 app.get('/oauth/redirect', (req, res) => {
   axios({
     method: 'post',
-    url: `https://getpocket.com/v3/oauth/request?consumer_key=${CONSUMER_KEY}&redirect_uri=${DOMAIN}/oauth/finish`,
+    url: `https://getpocket.com/v3/oauth/request?consumer_key=${CONSUMER_KEY}&redirect_uri=${encodeURI(DOMAIN + '/oauth/finish')}`,
     headers: {
       'X-Accept': 'application/json',
       'Content-Type': 'application/json'
