@@ -87,6 +87,34 @@ app.get('/api/digest', (req, res) => {
   })
 })
 
+app.post('/api/publish', (req, res) => {
+  const accessToken = process.env.POCKET_ACCESS_TOKEN
+  axios.get(`${DOMAIN}/api/digest?access_token=${accessToken}`).then(function(response) {
+    console.log('Got response from digest API:')
+    console.log(response)
+    const data = {"text": response.data}
+    console.log('Message to be published:')
+    console.log(data)
+    axios({
+      method: 'post',
+      url: process.env.SLACK_ENDPOINT,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {"text": response.data}
+    }).then(function(response) {
+      res.send("Successfully published message to Slack.")
+    }).catch(function(error) {
+      console.log('Encountered error publishing to Slack.')
+      console.log(error)
+      res.send(error)
+    })
+  }).catch(function(error) {
+    console.log('Encountered error reading from digest API.')
+    res.send(error)
+  })
+})
+
 app.get('/oauth/redirect', (req, res) => {
   axios({
     method: 'post',
