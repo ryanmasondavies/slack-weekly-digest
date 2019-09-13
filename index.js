@@ -25,7 +25,7 @@ app.get('/oauth/redirect', (req, res) => {
     console.log(`Response:`);
     console.log(response);
     console.log("Redirecting user to Pocket...");
-    res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${requestToken}&code=${response.data.code}`);
+    res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${CONSUMER_KEY}&code=${response.data.code}`);
   }).catch((error) => {
     console.log('Encountered error');
     console.log(error);
