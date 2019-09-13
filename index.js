@@ -7,7 +7,7 @@ const app = express()
 
 app.get('/', (req, res) => {
   if (req.query.access_token) {
-    res.redirect('https://getpocket.com/v3/oauth/authorize?consumer_key=${CONSUMER_KEY}&code=${req.query.access_token}')
+    res.send(req.query.access_token)
   } else {
     res.send('Hello World')
   }
@@ -24,7 +24,7 @@ app.get('/oauth/redirect', (req, res) => {
   }).then((response) => {
     console.log(response)
     const requestToken = response.data.code
-    res.redirect('https://getpocket.com/auth/authorize?request_token=${requestToken}&redirect_uri=${DOMAIN}/oauth/finish');
+    res.redirect(`https://getpocket.com/auth/authorize?request_token=${requestToken}&redirect_uri=${DOMAIN}/oauth/finish`);
   }).catch((error) => {
     res.send(error)
   })
