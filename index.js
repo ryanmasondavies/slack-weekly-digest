@@ -7,7 +7,7 @@ const app = express()
 
 app.get('/', (req, res) => {
   if (req.query.access_token) {
-    res.send(req.query.access_token)
+    res.send(`Welcome, ${req.query.username}. Token: ${req.query.access_token}`)
   } else {
     res.send('Hello World')
   }
@@ -42,6 +42,8 @@ app.get('/oauth/finish', (req, res) => {
       'X-Accept': 'application/json',
       'Content-Type': 'application/json'
     }
+  }).then((response) => {
+    res.redirect(`/?access_token=${response.data.access_token}&username=${response.data.username}`)
   }).catch((error) => {
     res.send(error)
   })
