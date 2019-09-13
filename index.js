@@ -72,12 +72,12 @@ app.get('/api/digest', (req, res) => {
     console.log("Talks:")
     console.log(articles)
     var message = "*Talks:*\n\n"
-    message += talks.map(function(talk) {
-      return `- ${talk.resolved_title}: ${talk.resolved_url}\n`
+    talks.forEach(function(talk) {
+      message += `- ${talk.resolved_title}: ${talk.resolved_url}\n`
     })
     message += "\n*Articles:*"
-    message += articles.map(function(article) {
-      return `- ${article.resolved_title}: ${article.resolved_url}\n`
+    articles.forEach(function(article) {
+      message += `- ${article.resolved_title}: ${article.resolved_url}\n`
     })
     res.send(message)
   })).catch((error) => {
