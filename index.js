@@ -21,6 +21,7 @@ app.get('/oauth/redirect', (req, res) => {
       'Content-Type': 'application/json'
     }
   }).then((response) => {
+    console.log(response)
     const accessToken = response.data.access_token
     res.redirect(`/?access_token=${accessToken}`)
   }).catch((error) => {
