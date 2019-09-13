@@ -75,7 +75,7 @@ app.get('/api/digest', (req, res) => {
     talks.forEach(function(talk) {
       message += `- ${talk.resolved_title}: ${talk.resolved_url}\n`
     })
-    message += "\n*Articles:*"
+    message += "\n*Articles:*\n\n"
     articles.forEach(function(article) {
       message += `- ${article.resolved_title}: ${article.resolved_url}\n`
     })
