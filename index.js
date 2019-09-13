@@ -6,9 +6,7 @@ const app = express()
 
 app.get('/', (req, res) => {
   res.send('Hello World')
-  if (req.query.access_token != nil) {
-    res.send(req.query.access_token)
-  }
+  res.send(req.query)
 })
 
 app.get('/oauth/redirect', (req, res) => {
