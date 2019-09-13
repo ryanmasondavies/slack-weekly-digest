@@ -19,6 +19,8 @@ app.get('/oauth/redirect', (req, res) => {
   }).then((response) => {
     const accessToken = response.data.access_token
     res.redirect(`/index.js?access_token=${accessToken}`)
+  }).catch((error) => {
+    res.send(error)
   })
 })
 
