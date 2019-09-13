@@ -31,6 +31,7 @@ app.get('/oauth/redirect', (req, res) => {
 })
 
 app.get('/oauth/finish', (req, res) => {
+  console.log(req)
   const requestToken = req.query.code
   axios({
     method: 'post',
@@ -42,7 +43,6 @@ app.get('/oauth/finish', (req, res) => {
   }).catch((error) => {
     res.send(error)
   })
-  res.send(req.query)
 })
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
