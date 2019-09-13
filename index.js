@@ -22,7 +22,8 @@ app.get('/oauth/redirect', (req, res) => {
       'Content-Type': 'application/json'
     }
   }).then((response) => {
-    res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${CONSUMER_KEY}&code=${requestToken}`);
+    console.log(response)
+    res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${requestToken}&code=${response.data.code}`);
   }).catch((error) => {
     res.send(error)
   })
