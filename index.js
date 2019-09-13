@@ -67,6 +67,10 @@ app.get('/api/digest', (req, res) => {
     });
     const talks = shuffle(allTalks).slice(0,5)
     const articles = shuffle(allArticles).slice(0,5)
+    console.log("Articles:")
+    console.log(talks)
+    console.log("Talks:")
+    console.log(articles)
     var message = "*Talks:*\n\n"
     message += talks.map(function(talk) {
       return `- ${talk.resolved_title}: ${talk.resolved_url}\n`
