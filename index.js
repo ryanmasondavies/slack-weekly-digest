@@ -23,7 +23,7 @@ app.get('/oauth/redirect', (req, res) => {
     }
   }).then((response) => {
     console.log("Redirecting user to Pocket...")
-    console.log(response)
+    console.log(`Response: ${response}`)
     res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${requestToken}&code=${response.data.code}`);
   }).catch((error) => {
     res.send(error)
@@ -31,7 +31,7 @@ app.get('/oauth/redirect', (req, res) => {
 })
 
 app.get('/oauth/finish', (req, res) => {
-  console.log(req)
+  console.log(`OAuth finish: ${req}`)
   const requestToken = req.query.code
   axios({
     method: 'post',
