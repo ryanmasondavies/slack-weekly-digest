@@ -5,8 +5,12 @@ const CONSUMER_KEY = process.env.POCKET_CONSUMER_KEY || ""
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send('Hello World')
-  res.send(req.query)
+  var body = 'Hello World';
+  if (req.query.access_token) {
+    body += '<br>'
+    body += req.query.access_token
+  }
+  res.send(body)
 })
 
 app.get('/oauth/redirect', (req, res) => {
