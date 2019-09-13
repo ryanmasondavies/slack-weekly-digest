@@ -22,11 +22,7 @@ app.get('/oauth/redirect', (req, res) => {
       'Content-Type': 'application/json'
     }
   }).then((response) => {
-    console.log(response)
-    const requestToken = response.data.code
-    const redirectURI = encodeURI(`${DOMAIN}/oauth/finish?code=${requestToken}`)
-    console.log("Redirect to " + redirectURI)
-    res.redirect(`https://getpocket.com/auth/authorize?request_token=${requestToken}&redirect_uri=${redirectURI}`);
+    res.redirect(`https://getpocket.com/auth/authorize?consumer_key=${CONSUMER_KEY}&code=${requestToken}`);
   }).catch((error) => {
     res.send(error)
   })
