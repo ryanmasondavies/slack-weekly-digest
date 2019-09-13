@@ -22,7 +22,7 @@ app.get('/oauth/redirect', (req, res) => {
     }
   }).then((response) => {
     console.log(response)
-    const accessToken = response.data.token
+    const accessToken = response.data.code
     res.redirect(`/?access_token=${accessToken}`)
   }).catch((error) => {
     res.send(error)
