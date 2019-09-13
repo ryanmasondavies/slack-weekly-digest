@@ -6,6 +6,9 @@ const app = express()
 
 app.get('/', (req, res) => {
   res.send('Hello World')
+  if (req.query.access_token != nil) {
+    res.send(req.query.access_token)
+  }
 })
 
 app.get('/oauth/redirect', (req, res) => {
@@ -14,11 +17,12 @@ app.get('/oauth/redirect', (req, res) => {
     method: 'post',
     url: `https://getpocket.com/v3/oauth/request?consumer_key=${CONSUMER_KEY}&redirect_uri=https://tranquil-beach-30466.herokuapp.com/oauth/finish`,
     headers: {
-      accept: 'application/json'
+      'X-Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
   }).then((response) => {
     const accessToken = response.data.access_token
-    res.redirect(`/index.js?access_token=${accessToken}`)
+    res.redirect(`/?access_token=${accessToken}`)
   }).catch((error) => {
     res.send(error)
   })
