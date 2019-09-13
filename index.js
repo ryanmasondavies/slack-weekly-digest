@@ -25,6 +25,7 @@ app.get('/oauth/redirect', (req, res) => {
     console.log(response)
     const requestToken = response.data.code
     const redirectURI = encodeURI(`${DOMAIN}/oauth/finish?code=${requestToken}`)
+    console.log("Redirect to " + redirectURI)
     res.redirect(`https://getpocket.com/auth/authorize?request_token=${requestToken}&redirect_uri=${DOMAIN}/oauth/finish`);
   }).catch((error) => {
     res.send(error)
