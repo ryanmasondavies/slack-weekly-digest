@@ -2,36 +2,46 @@ const express = require("express");
 const axios = require('axios');
 const PORT = process.env.PORT || 5000
 const CONSUMER_KEY = process.env.POCKET_CONSUMER_KEY || ""
+const DOMAIN = "https://tranquil-beach-30466.herokuapp.com"
 const app = express()
 
 app.get('/', (req, res) => {
-  var body = 'Hello World';
   if (req.query.access_token) {
-    body += '<br>'
-    body += req.query.access_token
+    res.redirect('https://getpocket.com/v3/oauth/authorize?consumer_key=${CONSUMER_KEY}&code=${req.query.access_token}')
+  } else {
+    res.send('Hello World')
   }
-  res.send(body)
 })
 
 app.get('/oauth/redirect', (req, res) => {
-  const requestToken = req.query.code
   axios({
     method: 'post',
-    url: `https://getpocket.com/v3/oauth/request?consumer_key=${CONSUMER_KEY}&redirect_uri=https://tranquil-beach-30466.herokuapp.com/oauth/finish`,
+    url: `https://getpocket.com/v3/oauth/request?consumer_key=${CONSUMER_KEY}&redirect_uri=${DOMAIN}/oauth/finish`,
     headers: {
       'X-Accept': 'application/json',
       'Content-Type': 'application/json'
     }
   }).then((response) => {
     console.log(response)
-    const accessToken = response.data.code
-    res.redirect(`/?access_token=${accessToken}`)
+    const requestToken = response.data.code
+    res.redirect('https://getpocket.com/auth/authorize?request_token=${requestToken}&redirect_uri=${DOMAIN}/oauth/finish');
   }).catch((error) => {
     res.send(error)
   })
 })
 
 app.get('/oauth/finish', (req, res) => {
+  const requestToken = req.query.code
+  axios({
+    method: 'post',
+    url: `https://getpocket.com/v3/oauth/authorize?consumer_key=${CONSUMER_KEY}&code=${requestToken}`,
+    headers: {
+      'X-Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).catch((error) => {
+    res.send(error)
+  })
   res.send(req.query)
 })
 
