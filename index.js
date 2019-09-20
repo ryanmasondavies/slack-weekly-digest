@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 function getTalksFromPocket(accessToken) {
   return axios({
     method: 'get',
-    url: `https://getpocket.com/v3/get?consumer_key=${CONSUMER_KEY}&access_token=${accessToken}&tag=ios%20talk&sort=newest&detailType=simple`,
+    url: `https://getpocket.com/v3/get?consumer_key=${CONSUMER_KEY}&access_token=${accessToken}&state=all&tag=ios%20talk&sort=newest&detailType=simple`,
     headers: {
       'X-Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ function getTalksFromPocket(accessToken) {
 function getArticlesFromPocket(accessToken) {
   return axios({
     method: 'get',
-    url: `https://getpocket.com/v3/get?consumer_key=${CONSUMER_KEY}&access_token=${accessToken}&tag=digest&contentType=article&sort=newest&detailType=simple`,
+    url: `https://getpocket.com/v3/get?consumer_key=${CONSUMER_KEY}&access_token=${accessToken}&tag=digest&state=all&contentType=article&sort=newest&detailType=simple`,
     headers: {
       'X-Accept': 'application/json',
       'Content-Type': 'application/json'
