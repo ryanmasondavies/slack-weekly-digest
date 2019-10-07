@@ -65,8 +65,8 @@ app.get('/api/digest', (req, res) => {
     const allArticles = Object.keys(articlesResponse.data.list).map(function(key) {
       return articlesResponse.data.list[key];
     });
-    const talks = shuffle(allTalks).slice(0,5)
-    const articles = shuffle(allArticles).slice(0,5)
+    const talks = shuffle(allTalks).slice(0,3)
+    const articles = shuffle(allArticles).slice(0,3)
     console.log("Articles:")
     console.log(talks)
     console.log("Talks:")
