@@ -24,6 +24,10 @@ function shuffle(array) {
   return array;
 }
 
+function removeQuery(url) {
+  return url.split("?")[0]
+}
+
 app.get('/', (req, res) => {
   if (req.query.access_token) {
     res.send(`Welcome, ${req.query.username}. Token: ${req.query.access_token}`)
@@ -73,11 +77,11 @@ app.get('/api/digest', (req, res) => {
     console.log(articles)
     var message = "*Talks:*\n\n"
     talks.forEach(function(talk) {
-      message += `- ${talk.resolved_title}: ${talk.resolved_url}\n`
+      message += `- ${talk.resolved_title}: ${removeQuery(article.resolved_url)}\n`
     })
     message += "\n*Articles:*\n\n"
     articles.forEach(function(article) {
-      message += `- ${article.resolved_title}: ${article.resolved_url}\n`
+      message += `- ${article.resolved_title}: ${removeQuery(article.resolved_url)}\n`
     })
     res.send(message)
   })).catch((error) => {
